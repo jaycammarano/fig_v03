@@ -1,0 +1,11 @@
+{
+  "name": "fig",
+  "version": "0.3.0",
+  "description": "An attempt at a music site built on Express and React",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest -w"
+  },
+  "author": "Jay Cammarano",
+  "license": "ISC"
+}

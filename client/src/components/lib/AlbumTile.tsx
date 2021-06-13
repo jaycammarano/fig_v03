@@ -18,7 +18,7 @@ const AlbumTile: React.FC<IAlbum> = ({ title, header, artist, albumArt }) => {
       <div className="p-4 text-center text-white border-b-4 border-green-400">
         <img alt="Cover Art" src={albumArt} />
       </div>
-      <div className="p-4 text-justify text-white border-green-400">
+      <div className="p-4 text-white border-green-400">
         <strong className="text-xl text-center">
           {header ? title : `by ${artist}`}
         </strong>

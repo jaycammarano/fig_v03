@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 interface IAlbum {
   title: string;
   header?: string;
@@ -19,7 +19,7 @@ const AlbumTile: React.FC<IAlbum> = ({ title, header, artist, albumArt }) => {
         <strong className="text-xl text-center">
           {header ? title : `by ${artist}`}
         </strong>
-        <p>{header ? ` by ${artist}` : ''}</p>
+        <p>{header ? ` by ${artist}` : ""}</p>
       </div>
     </div>
   );

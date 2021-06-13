@@ -21,8 +21,16 @@ async function seed() {
             }
         }
     })
-
-  console.log({ rizzla })
+    const blkAdonis = await prisma.artist.create({
+      data: {
+        name: "Blk.Adonis",
+        releases: {
+          connect: {
+              url: "https://soundcloud.com/rizzladj/battyjack-club-mix-1",
+        }
+      }
+    }})
+  console.log({ rizzla, blkAdonis })
 }
 
 seed()

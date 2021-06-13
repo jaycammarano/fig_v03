@@ -3,7 +3,7 @@ interface IAlbum {
   title: string;
   header?: string;
   albumArt: string;
-  artist: JSX.Element[] | string;
+  artist: JSX.Element | string;
 }
 
 const AlbumTile: React.FC<IAlbum> = ({ title, header, artist, albumArt }) => {

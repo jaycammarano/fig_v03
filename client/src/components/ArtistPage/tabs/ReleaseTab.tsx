@@ -15,11 +15,11 @@ const ReleaseTab: React.FC<IReleaseTab> = ({ artist, releases }) => {
         return (
           <>
             <Link
-              className="text-green-500 underline"
+              className="text-green-400 underline"
               to={`/artists/${subArtist.artist.id}`}
             >
               {subArtist.artist.name}
-            </Link>{' '}
+            </Link>
           </>
         );
       } else if (
@@ -30,7 +30,7 @@ const ReleaseTab: React.FC<IReleaseTab> = ({ artist, releases }) => {
           <>
             Remixed By:{' '}
             <Link
-              className="text-green-500 underline"
+              className="text-green-400 underline"
               to={`/artists/${subArtist.artist.id}`}
             >
               {subArtist.artist.name}
@@ -40,13 +40,21 @@ const ReleaseTab: React.FC<IReleaseTab> = ({ artist, releases }) => {
       }
       return (
         <Link
-          className="text-green-500 underline"
+          className="text-green-400 underline"
           to={`/artists/${subArtist.artist.id}`}
         >
           {subArtist.artist.name}
         </Link>
       );
-    });
+    }).reduce((acc, x) =>
+      !acc ? (
+        x
+      ) : (
+        <>
+          {acc}, {x}
+        </>
+      )
+    );
 
     return (
       <AlbumTile

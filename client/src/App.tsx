@@ -2,7 +2,7 @@ import { ApolloProvider } from '@apollo/client';
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './assets/css/App.css';
-import ArtistPage from './components/ArtistPage';
+import ArtistPage from './components/ArtistPage/ArtistPage';
 import HomePage from './components/HomePage';
 import LandingPage from './components/LandingPage/LandingPage';
 import { client } from './GraphQL/client';

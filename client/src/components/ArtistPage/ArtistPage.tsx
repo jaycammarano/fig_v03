@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useQuery, gql } from '@apollo/client';
-import { ARTIST } from '../GraphQL/queries';
-import { Release } from './lib/types';
-import AlbumTile from './lib/AlbumTile';
+import { useQuery } from '@apollo/client';
+import { ARTIST } from '../../GraphQL/queries';
+import { Release } from '../lib/types';
+import ReleaseTab from './tabs/ReleaseTab';
 interface IArtistPage {
   location: Location;
 }
@@ -27,30 +27,21 @@ const ArtistPage: React.FC<IArtistPage> = ({ location }) => {
 
   const artistID = parseInt(location.pathname.split('/')[2]);
   const { error, loading, data } = useQuery(ARTIST, {
-    variables: { artistID },
+    variables: { id: artistID },
   });
   useEffect(() => {
     setArtist(data);
   }, [data]);
   // lazy load bio from Last.FM +/or discogs
   // lazy load similar artists based on tags?
-  let releaseTiles;
-  if (artist.artist.releases) {
-    releaseTiles = artist.artist.releases.map((release: Release) => {
-      const artists = release.artists.join(', ');
-      return (
-        <AlbumTile
-          title={release.name}
-          artist={artists}
-          albumArt={release.image}
-        />
-      );
-    });
+  let activeTab = <ReleaseTab releases={artist.artist.releases} />;
+  if (artist) {
+    activeTab = <ReleaseTab releases={artist.artist.releases} />;
   }
   return (
     <div className="text-white ">
       <div className="m-2 font-bold text-white">
-        <div className="m-4 text-7xl">Artist Name</div>
+        <div className="m-4 text-7xl">{artist ? artist.artist.name : ''}</div>
         <div className="flex flex-row">
           <div className="w-1/3 px-8 py-3 pr-32 m-2 text-3xl bg-green-500 border-4 border-green-500 rounded focus:border-green-300 hover:border-green-300 hover:border-2">
             Releases
@@ -62,7 +53,7 @@ const ArtistPage: React.FC<IArtistPage> = ({ location }) => {
             Related
           </div>
         </div>
-        {releaseTiles}
+        {activeTab}
       </div>
     </div>
   );

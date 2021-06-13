@@ -1,27 +1,27 @@
-import express, { json, Response, Request, NextFunction } from 'express';
-import logging from './config/logging';
-import config, { SERVER_NAMESPACE } from './config/config';
-import cors from 'cors';
-const app = express();
-/** Log the request */
-app.use((req: Request, res: Response, next: NextFunction) => {
-  logging.info(
-    `METHOD: [${req.method}] - URL: [${req.url}] - STATUS: [${res.statusCode}] - IP: [${req.socket.remoteAddress}]`,
-    SERVER_NAMESPACE
-  );
+import 'reflect-metadata'
+import {ApolloServer} from "apollo-server-express"
+import Express from "express"
+import { buildSchema } from "type-graphql"
+import { PrismaClient } from '@prisma/client'
+import { resolvers } from "@generated/type-graphql";
+import { Context } from 'apollo-server-core'
 
-  next();
-});
+const main = async () => {
+    const prisma = new PrismaClient()
+    const schema = await buildSchema({
+        resolvers,
+        validate: false,
+    })
+    const apolloSever = new ApolloServer({
+        schema,
+        playground: true,
+        context: (): Context => ({ prisma })})
+    const app = Express()
 
-/** Middleware */
-app.use(json());
-app.use(cors());
+    apolloSever.applyMiddleware({app})
+    app.listen(4000, () => {
+        console.log('server started on http://localhost:4000/graphql')
+    })
+}
 
-/** Routes go here */
-
-app.listen(config.server.port, () => {
-  logging.info(
-    SERVER_NAMESPACE,
-    `Server is running ${config.server.hostname}:${config.server.port}`
-  );
-});
+main()

@@ -1,24 +1,20 @@
 import { gql } from "@apollo/client";
 
 export const ARTIST = gql`
-  query Artist($id: Int!){
-    artist(where:{
-      id: $id
-    }){
-      id
-      name
-      image
-      releases{
+   query Artist($id: Int!) {
+    artist(where: { id: $id }) {
         name
-        type
+        releases {
+          name
         image
-        releaseDate
-        artists{
-          name
+        ArtistsOnReleases {
+          artist {
+            id
+            name
+          }
+          role
         }
-        tags{
-          name
-        }
+        id
       }
     }
   }

@@ -1,17 +1,24 @@
 export type Release = {
-  name: string;
-  tags: Tag[];
+  ArtistsOnReleases: ArtistsOnReleases[]
   image: string;
+  name: string;
   releaseDate: Date
+  tags: Tag[];
   type: string
-  artists: Artist[]
 };
 
 type Tag = {
   name: string
 }
 
+type ArtistsOnReleases = {
+  id: string
+  artist: Artist
+  role: string
+}
+
 type Artist = {
+  id: string
   name: string
   releases?: Release[]
   image?: string

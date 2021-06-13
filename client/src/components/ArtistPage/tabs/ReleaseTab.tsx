@@ -1,18 +1,53 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import AlbumTile from '../../lib/AlbumTile';
 import { Release } from '../../lib/types';
 
 interface IReleaseTab {
+  artist: string;
   releases: Release[];
 }
 
-const ReleaseTab: React.FC<IReleaseTab> = ({ releases }) => {
+const ReleaseTab: React.FC<IReleaseTab> = ({ artist, releases }) => {
   const releaseTiles = releases.map((release: Release) => {
-    const artists = release.artists
-      .map((artist) => {
-        return `${artist.name}`;
-      })
-      .join(', ');
+    const artists = release.ArtistsOnReleases.map((subArtist) => {
+      if (subArtist.role === 'MAIN') {
+        return (
+          <>
+            <Link
+              className="text-green-500 underline"
+              to={`/artists/${subArtist.artist.id}`}
+            >
+              {subArtist.artist.name}
+            </Link>{' '}
+          </>
+        );
+      } else if (
+        subArtist.role === 'REMIXER' &&
+        artist !== subArtist.artist.name
+      ) {
+        return (
+          <>
+            Remixed By:{' '}
+            <Link
+              className="text-green-500 underline"
+              to={`/artists/${subArtist.artist.id}`}
+            >
+              {subArtist.artist.name}
+            </Link>{' '}
+          </>
+        );
+      }
+      return (
+        <Link
+          className="text-green-500 underline"
+          to={`/artists/${subArtist.artist.id}`}
+        >
+          {subArtist.artist.name}
+        </Link>
+      );
+    });
+
     return (
       <AlbumTile
         title={release.name}

@@ -48,7 +48,8 @@ model Artist {
   name              String
   releases          Release[]
   image             String              @default("https://i.imgur.com/mdbos5t.png")
-  ArtistsOnReleases ArtistsOnReleases[]
+  artistsOnReleases ArtistsOnReleases[]
+  createdAt         DateTime            @default(now())
 }
 
 model Release {
@@ -60,7 +61,9 @@ model Release {
   tags              Tag[]
   image             String              @default("https://i.imgur.com/mdbos5t.png")
   url               String              @unique
-  ArtistsOnReleases ArtistsOnReleases[]
+  createdAt         DateTime            @default(now())
+  artistsOnReleases ArtistsOnReleases[]
+
 }
 
 model Tag {
@@ -70,9 +73,9 @@ model Tag {
 }
 
 model ArtistsOnReleases {
-  artist    Artist   @relation(fields: [artistId], references: [id])
+  artist    Artist?   @relation(fields: [artistId], references: [id])
+  release   Release?  @relation(fields: [releaseId], references: [id])
   artistId  Int
-  release   Release  @relation(fields: [releaseId], references: [id])
   releaseId Int
   role      Role     @default(MAIN)
   createdAt DateTime @default(now())

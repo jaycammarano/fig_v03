@@ -2,8 +2,8 @@ import React from 'react';
 interface IAlbum {
   title: string;
   header?: string;
-  artist: string;
   albumArt: string;
+  artist: JSX.Element[] | string;
 }
 
 const AlbumTile: React.FC<IAlbum> = ({ title, header, artist, albumArt }) => {
@@ -20,9 +20,10 @@ const AlbumTile: React.FC<IAlbum> = ({ title, header, artist, albumArt }) => {
       </div>
       <div className="p-4 text-white border-green-400">
         <strong className="text-xl text-center">
-          {header ? title : `by ${artist}`}
+          {header ? '' : 'by: '}
+          {header ? title : artist}
         </strong>
-        <p>{header ? ` by ${artist}` : ''}</p>
+        <p>{header ? artist : ''}</p>
       </div>
     </div>
   );

@@ -15,7 +15,9 @@ const ArtistPage: React.FC<IArtistPage> = ({ location }) => {
     type: '',
     image: '',
     releaseDate: new Date(),
-    artists: [{ name: '' }],
+    ArtistsOnReleases: [
+      { artist: { name: '', id: '' }, id: '1', role: 'MAIN' },
+    ],
     tags: [{ name: '' }],
   };
 
@@ -41,7 +43,12 @@ const ArtistPage: React.FC<IArtistPage> = ({ location }) => {
   // lazy load similar artists based on tags?
   let activeTab;
   if (artist && whichTab === 'releases') {
-    activeTab = <ReleaseTab releases={artist.artist.releases} />;
+    activeTab = (
+      <ReleaseTab
+        artist={artist.artist.name}
+        releases={artist.artist.releases}
+      />
+    );
   } else if (whichTab === 'about') {
     activeTab = <AboutTab artist={artist.artist.name} />;
   } else if (whichTab === 'related') {

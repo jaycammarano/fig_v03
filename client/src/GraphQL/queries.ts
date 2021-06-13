@@ -15,6 +15,7 @@ export const ARTIST = gql`
           role
         }
         id
+        type
       }
     }
   }

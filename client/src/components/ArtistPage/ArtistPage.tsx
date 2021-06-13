@@ -12,9 +12,9 @@ interface IArtistPage {
 const ArtistPage: React.FC<IArtistPage> = ({ location }) => {
   const release: Release = {
     name: '',
-    type: '',
     image: '',
     releaseDate: new Date(),
+    type: 'SINGLE',
     ArtistsOnReleases: [
       { artist: { name: '', id: '' }, id: '1', role: 'MAIN' },
     ],

@@ -43,6 +43,7 @@ model Release {
   artists     Artist[]
   tags        Tag[]
   image       String      @default("https://i.imgur.com/mdbos5t.png")
+  url         String      @unique
 }
 
 model Tag {

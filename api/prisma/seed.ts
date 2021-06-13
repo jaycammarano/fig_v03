@@ -9,6 +9,7 @@ async function seed() {
                 create: {
                     name: "Battyjack (Club Mix)",
                     releaseDate: new Date("2013-07-14"),
+                    image: "https://i.imgur.com/r2jnjsY.jpg",
                     type: "SINGLE",
                     tags: {
                         create:{

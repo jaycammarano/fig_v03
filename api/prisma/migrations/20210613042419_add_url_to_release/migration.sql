@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Release" ALTER COLUMN "url" DROP DEFAULT;

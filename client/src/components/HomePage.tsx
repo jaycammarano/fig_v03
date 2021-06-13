@@ -1,7 +1,7 @@
-import React from 'react';
-import Layout from './Layout/Layout';
-import AlbumTile from './lib/AlbumTile';
-import ArtistTile from './lib/ArtistTile';
+import React from "react";
+import Layout from "./Layout/Layout";
+import AlbumTile from "./lib/AlbumTile";
+import ArtistTile from "./lib/ArtistTile";
 
 const HomePage: React.FC = () => {
   return (
@@ -39,7 +39,7 @@ const HomePage: React.FC = () => {
             name="title"
             header="Most Recent Artist"
             artistImage=""
-            tags={['rock', 'hyperpop', 'pop.punk']}
+            tags={["rock", "hyperpop", "pop.punk"]}
           />
         </div>
       </div>

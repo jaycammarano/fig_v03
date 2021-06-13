@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator typegraphql {
+  provider = "typegraphql-prisma"
+}
+
+enum ReleaseType {
+  ALBUM
+  ANTHOLOGY
+  COMPILATION
+  CONCERT
+  DJMIX
+  EP
+  INTERVIEW
+  LIVEALBUM
+  MINIALBUM
+  MIXTAPE
+  PROMO
+  SINGLE
+  SOUNDTRACK
+  UNKNOWN
+  UNOFFICIAL
+
+}
+
+enum Role {
+  COMPOSER
+  CONDUCTOR
+  MAIN
+  GUEST
+  REMIXER
+  DJ
+  PRODUCER
+}
+
+model Artist {
+  id                Int                 @id @default(autoincrement())
+  name              String
+  releases          Release[]
+  image             String              @default("https://i.imgur.com/mdbos5t.png")
+  ArtistsOnReleases ArtistsOnReleases[]
+}
+
+model Release {
+  id                Int                 @id @default(autoincrement())
+  name              String
+  releaseDate       DateTime
+  type              ReleaseType         @default(UNKNOWN)
+  artists           Artist[]
+  tags              Tag[]
+  image             String              @default("https://i.imgur.com/mdbos5t.png")
+  url               String              @unique
+  ArtistsOnReleases ArtistsOnReleases[]
+}
+
+model Tag {
+  id       Int       @id @default(autoincrement())
+  name     String
+  releases Release[]
+}
+
+model ArtistsOnReleases {
+  artist    Artist   @relation(fields: [artistId], references: [id])
+  artistId  Int
+  release   Release  @relation(fields: [releaseId], references: [id])
+  releaseId Int
+  role      Role     @default(MAIN)
+  createdAt DateTime @default(now())
+
+  @@id([artistId, releaseId])
+}

@@ -1,9 +1,52 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useQuery, gql } from '@apollo/client';
+import { ARTIST } from '../GraphQL/queries';
+import { Release } from './lib/types';
+import AlbumTile from './lib/AlbumTile';
+interface IArtistPage {
+  location: Location;
+}
 
-const ArtistPage: React.FC = () => {
-  // fetch name and releases
+const ArtistPage: React.FC<IArtistPage> = ({ location }) => {
+  const release: Release = {
+    name: '',
+    type: '',
+    image: '',
+    releaseDate: new Date(),
+    artists: [{ name: '' }],
+    tags: [{ name: '' }],
+  };
+
+  const [artist, setArtist] = useState({
+    artist: {
+      name: '',
+      releases: [release],
+      image: 'image',
+    },
+  });
+
+  const artistID = parseInt(location.pathname.split('/')[2]);
+  const { error, loading, data } = useQuery(ARTIST, {
+    variables: { artistID },
+  });
+  useEffect(() => {
+    setArtist(data);
+  }, [data]);
   // lazy load bio from Last.FM +/or discogs
   // lazy load similar artists based on tags?
+  let releaseTiles;
+  if (artist.artist.releases) {
+    releaseTiles = artist.artist.releases.map((release: Release) => {
+      const artists = release.artists.join(', ');
+      return (
+        <AlbumTile
+          title={release.name}
+          artist={artists}
+          albumArt={release.image}
+        />
+      );
+    });
+  }
   return (
     <div className="text-white ">
       <div className="m-2 font-bold text-white">
@@ -19,6 +62,7 @@ const ArtistPage: React.FC = () => {
             Related
           </div>
         </div>
+        {releaseTiles}
       </div>
     </div>
   );

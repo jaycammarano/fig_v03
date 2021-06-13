@@ -1,5 +1,18 @@
 export type Release = {
-    title: string
-    tags: string[]
-    cover: string
+  name: string;
+  tags: Tag[];
+  image: string;
+  releaseDate: Date
+  type: string
+  artists: Artist[]
+};
+
+type Tag = {
+  name: string
+}
+
+type Artist = {
+  name: string
+  releases?: Release[]
+  image?: string
 }

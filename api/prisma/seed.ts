@@ -11,11 +11,12 @@ async function seed() {
                     releaseDate: new Date("2013-07-14"),
                     image: "https://i.imgur.com/r2jnjsY.jpg",
                     type: "SINGLE",
+                    url: "https://soundcloud.com/rizzladj/battyjack-club-mix-1",
                     tags: {
                         create:{
                             name: "kunq"
                         }
-                    }
+                    },
                 }
             }
         }

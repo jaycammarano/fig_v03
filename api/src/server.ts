@@ -1,17 +1,36 @@
 import 'reflect-metadata'
 import {ApolloServer} from "apollo-server-express"
 import Express from "express"
-import { buildSchema } from "type-graphql"
+import {
+  buildSchema,
+
+} from "type-graphql";
+import {
+    ArtistsOnReleasesRelationsResolver,
+    ArtistsOnReleasesCrudResolver,
+    ArtistRelationsResolver,
+    ReleaseRelationsResolver,
+    ArtistCrudResolver,
+    ReleaseCrudResolver,
+} from "../prisma/generated/type-graphql"
+import path from "path";
 import { PrismaClient } from '@prisma/client'
-import { resolvers } from "@generated/type-graphql";
-import { Context } from 'apollo-server-core'
+
+import { LastFMResolver } from './GraphQL/lastFm';
+
+interface Context {
+    prisma: PrismaClient
+}
+
 
 const main = async () => {
-    const prisma = new PrismaClient()
     const schema = await buildSchema({
-        resolvers,
+        resolvers: [ArtistRelationsResolver, ReleaseCrudResolver, ArtistCrudResolver, ReleaseRelationsResolver, ArtistsOnReleasesRelationsResolver, ArtistsOnReleasesCrudResolver, LastFMResolver],
+        emitSchemaFile: path.resolve(__dirname, "./generated-schema.graphql"),
         validate: false,
     })
+    const prisma = new PrismaClient();
+
     const apolloSever = new ApolloServer({
         schema,
         playground: true,

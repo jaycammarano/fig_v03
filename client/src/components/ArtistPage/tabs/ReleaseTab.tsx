@@ -34,7 +34,7 @@ const ReleaseTab: React.FC<IReleaseTab> = ({ artist, releases }) => {
               to={`/artists/${subArtist.artist.id}`}
             >
               {subArtist.artist.name}
-            </Link>{' '}
+            </Link>
           </>
         );
       }

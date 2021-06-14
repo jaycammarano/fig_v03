@@ -1,0 +1,33 @@
+import * as TypeGraphQL from "type-graphql";
+import * as GraphQLScalars from "graphql-scalars";
+import { ReleaseOrderByInput } from "../../../inputs/ReleaseOrderByInput";
+import { ReleaseWhereInput } from "../../../inputs/ReleaseWhereInput";
+import { ReleaseWhereUniqueInput } from "../../../inputs/ReleaseWhereUniqueInput";
+
+@TypeGraphQL.ArgsType()
+export class AggregateReleaseArgs {
+  @TypeGraphQL.Field(_type => ReleaseWhereInput, {
+    nullable: true
+  })
+  where?: ReleaseWhereInput | undefined;
+
+  @TypeGraphQL.Field(_type => [ReleaseOrderByInput], {
+    nullable: true
+  })
+  orderBy?: ReleaseOrderByInput[] | undefined;
+
+  @TypeGraphQL.Field(_type => ReleaseWhereUniqueInput, {
+    nullable: true
+  })
+  cursor?: ReleaseWhereUniqueInput | undefined;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  take?: number | undefined;
+
+  @TypeGraphQL.Field(_type => TypeGraphQL.Int, {
+    nullable: true
+  })
+  skip?: number | undefined;
+}

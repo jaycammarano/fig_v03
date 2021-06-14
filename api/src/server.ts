@@ -22,11 +22,10 @@ interface Context {
     prisma: PrismaClient
 }
 
-
 const main = async () => {
     const schema = await buildSchema({
         resolvers: [ArtistRelationsResolver, ReleaseCrudResolver, ArtistCrudResolver, ReleaseRelationsResolver, ArtistsOnReleasesRelationsResolver, ArtistsOnReleasesCrudResolver, LastFMResolver],
-        emitSchemaFile: path.resolve(__dirname, "./generated-schema.graphql"),
+        emitSchemaFile: path.resolve(__dirname, "./GraphQL/generated-schema.graphql"),
         validate: false,
     })
     const prisma = new PrismaClient();

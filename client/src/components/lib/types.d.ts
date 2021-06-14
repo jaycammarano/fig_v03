@@ -1,5 +1,5 @@
 export type Release = {
-  ArtistsOnReleases: ArtistsOnReleases[]
+  artistsOnReleases: ArtistsOnReleases[]
   image: string;
   name: string;
   releaseDate: Date

@@ -10,51 +10,53 @@ interface IReleaseTab {
 
 const ReleaseTab: React.FC<IReleaseTab> = ({ artist, releases }) => {
   const releaseTiles = releases.map((release: Release) => {
-    const artists = release.ArtistsOnReleases.map((subArtist) => {
-      if (subArtist.role === 'MAIN') {
+    const artists = release.artistsOnReleases
+      .map((subArtist) => {
+        if (subArtist.role === 'MAIN') {
+          return (
+            <>
+              <Link
+                className="text-green-400 underline"
+                to={`/artists/${subArtist.artist.id}`}
+              >
+                {subArtist.artist.name}
+              </Link>
+            </>
+          );
+        } else if (
+          subArtist.role === 'REMIXER' &&
+          artist !== subArtist.artist.name
+        ) {
+          return (
+            <>
+              Remixed By:{' '}
+              <Link
+                className="text-green-400 underline"
+                to={`/artists/${subArtist.artist.id}`}
+              >
+                {subArtist.artist.name}
+              </Link>
+            </>
+          );
+        }
         return (
-          <>
-            <Link
-              className="text-green-400 underline"
-              to={`/artists/${subArtist.artist.id}`}
-            >
-              {subArtist.artist.name}
-            </Link>
-          </>
+          <Link
+            className="text-green-400 underline"
+            to={`/artists/${subArtist.artist.id}`}
+          >
+            {subArtist.artist.name}
+          </Link>
         );
-      } else if (
-        subArtist.role === 'REMIXER' &&
-        artist !== subArtist.artist.name
-      ) {
-        return (
+      })
+      .reduce((acc, x) =>
+        !acc ? (
+          x
+        ) : (
           <>
-            Remixed By:{' '}
-            <Link
-              className="text-green-400 underline"
-              to={`/artists/${subArtist.artist.id}`}
-            >
-              {subArtist.artist.name}
-            </Link>
+            {acc}, {x}
           </>
-        );
-      }
-      return (
-        <Link
-          className="text-green-400 underline"
-          to={`/artists/${subArtist.artist.id}`}
-        >
-          {subArtist.artist.name}
-        </Link>
+        )
       );
-    }).reduce((acc, x) =>
-      !acc ? (
-        x
-      ) : (
-        <>
-          {acc}, {x}
-        </>
-      )
-    );
 
     return (
       <AlbumTile

@@ -15,7 +15,7 @@ const ArtistPage: React.FC<IArtistPage> = ({ location }) => {
     image: '',
     releaseDate: new Date(),
     type: 'SINGLE',
-    ArtistsOnReleases: [
+    artistsOnReleases: [
       { artist: { name: '', id: '' }, id: '1', role: 'MAIN' },
     ],
     tags: [{ name: '' }],

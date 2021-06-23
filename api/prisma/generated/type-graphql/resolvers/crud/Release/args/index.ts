@@ -1,0 +1,12 @@
+export { AggregateReleaseArgs } from "./AggregateReleaseArgs";
+export { CreateManyReleaseArgs } from "./CreateManyReleaseArgs";
+export { CreateReleaseArgs } from "./CreateReleaseArgs";
+export { DeleteManyReleaseArgs } from "./DeleteManyReleaseArgs";
+export { DeleteReleaseArgs } from "./DeleteReleaseArgs";
+export { FindFirstReleaseArgs } from "./FindFirstReleaseArgs";
+export { FindManyReleaseArgs } from "./FindManyReleaseArgs";
+export { FindUniqueReleaseArgs } from "./FindUniqueReleaseArgs";
+export { GroupByReleaseArgs } from "./GroupByReleaseArgs";
+export { UpdateManyReleaseArgs } from "./UpdateManyReleaseArgs";
+export { UpdateReleaseArgs } from "./UpdateReleaseArgs";
+export { UpsertReleaseArgs } from "./UpsertReleaseArgs";

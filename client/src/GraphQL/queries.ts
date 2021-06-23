@@ -3,20 +3,34 @@ import { gql } from "@apollo/client";
 export const ARTIST = gql`
    query Artist($id: Int!) {
     artist(where: { id: $id }) {
+      name
+      image
+      releases {
         name
-        releases {
-          name
         image
-        ArtistsOnReleases {
+        type
+        id
+        artistsOnReleases {
           artist {
-            id
             name
+            id
           }
           role
         }
-        id
-        type
       }
     }
   }
 `;
+
+export const ARTISTABOUT = gql`
+  query LFMArtist($artist: String!){
+    lastFMArtist(artist: $artist){
+      artist{
+        url
+        bio{
+          content
+        }
+      }
+    }
+  }
+`

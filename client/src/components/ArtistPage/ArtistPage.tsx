@@ -49,7 +49,7 @@ const ArtistPage: React.FC<IArtistPage> = ({ location }) => {
         releases={artist.artist.releases}
       />
     );
-  } else if (whichTab === 'about') {
+  } else if (artist && whichTab === 'about') {
     activeTab = <AboutTab artist={artist.artist.name} />;
   } else if (whichTab === 'related') {
     activeTab = <RelatedTab artist={artist.artist.name} />;

@@ -30,10 +30,6 @@ const main = async () => {
       ArtistsOnReleasesCrudResolver,
       LastFMResolver,
     ],
-    emitSchemaFile: path.resolve(
-      __dirname,
-      "./GraphQL/generated-schema.graphql"
-    ),
     validate: false,
   });
   const prisma = new PrismaClient();

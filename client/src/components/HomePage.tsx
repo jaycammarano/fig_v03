@@ -40,32 +40,11 @@ const HomePage: React.FC = () => {
     displayAllReleases = artistsAndReleases.releases
       .reverse()
       .map((release) => {
-        const artists = release.artists
-          .map((subArtist) => {
-            return (
-              <Link
-                className="text-green-400 underline"
-                to={`/artists/${subArtist.id}`}
-              >
-                {subArtist.name}
-              </Link>
-            );
-          })
-          .reduce((acc, x) =>
-            !acc ? (
-              x
-            ) : (
-              <>
-                {acc}, {x}
-              </>
-            )
-          );
-
         return (
           <AlbumTile
             id={release.id}
             title={release.name}
-            artist={artists}
+            artists={release.artists}
             albumArt={release.image}
           />
         );
@@ -77,7 +56,7 @@ const HomePage: React.FC = () => {
     : { id: 0, name: '', image: '' };
   const mostRecentRelease = artistsAndReleases
     ? artistsAndReleases.releases[artistsAndReleases.releases.length - 1]
-    : { id: '', name: '', image: '' };
+    : { id: '', name: '', image: '', artists: [{ name: '', id: 0 }] };
   let displayAllArtists;
   if (artistsAndReleases) {
     displayAllArtists = artistsAndReleases.artists.map((artist) => {
@@ -120,7 +99,7 @@ const HomePage: React.FC = () => {
           <AlbumTile
             title={mostRecentRelease.name}
             header="Most Recent Album"
-            artist="artist"
+            artists={mostRecentRelease.artists}
             albumArt={mostRecentRelease.image}
             id={mostRecentArtist.id}
           />

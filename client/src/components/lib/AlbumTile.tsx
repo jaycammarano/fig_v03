@@ -1,20 +1,40 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Artist, ArtistsOnReleases } from './types';
 interface IAlbum {
   title: string;
   header?: string;
   albumArt: string;
-  artist: JSX.Element | string;
+  artists: Artist[];
   id: number;
 }
 
 const AlbumTile: React.FC<IAlbum> = ({
   title,
   header,
-  artist,
+  artists,
   albumArt,
   id,
 }) => {
+  // TODO FIXME
+  const formattedArtistsForDisplay = artists
+    .map((artist) => {
+      return (
+        <Link className="text-green-400 underline" to={`/artists/${artist.id}`}>
+          {artist.name}
+        </Link>
+      );
+    })
+    .reduce((acc, x) =>
+      !acc ? (
+        x
+      ) : (
+        <>
+          {acc}, {x}
+        </>
+      )
+    );
+
   return (
     <Link
       key={title}
@@ -30,9 +50,12 @@ const AlbumTile: React.FC<IAlbum> = ({
       <div className="p-4 text-white border-green-400">
         <strong className="text-xl text-center">
           {header ? '' : 'by: '}
-          {header ? title : artist}
+          {header ? title : formattedArtistsForDisplay}
         </strong>
-        <p>{header ? artist : ''}</p>
+
+        <p>
+          {header ? 'by: ' : ''} {header ? formattedArtistsForDisplay : ''}
+        </p>
       </div>
     </Link>
   );

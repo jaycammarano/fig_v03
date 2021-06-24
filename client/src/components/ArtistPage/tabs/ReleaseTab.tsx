@@ -67,7 +67,7 @@ const ReleaseTab: React.FC<IReleaseTab> = ({ artist, releases }) => {
       />
     );
   });
-  return <div>{releaseTiles}</div>;
+  return <div className="flex flex-row">{releaseTiles}</div>;
 };
 
 export default ReleaseTab;

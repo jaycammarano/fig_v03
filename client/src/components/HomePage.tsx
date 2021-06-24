@@ -72,15 +72,16 @@ const HomePage: React.FC = () => {
 
   const mostRecentArtist = artistsAndReleases
     ? artistsAndReleases.artists[artistsAndReleases.artists.length - 1]
-    : { name: '', image: '' };
+    : { id: 0, name: '', image: '' };
   const mostRecentRelease = artistsAndReleases
     ? artistsAndReleases.releases[artistsAndReleases.releases.length - 1]
-    : { name: '', image: '' };
+    : { id: '', name: '', image: '' };
   let displayAllArtists;
   if (artistsAndReleases) {
     displayAllArtists = artistsAndReleases.artists.map((artist) => {
       return (
         <ArtistTile
+          id={artist.id}
           name={artist.name}
           artistImage={artist.image}
           tags={['rock', 'hyperpop', 'pop.punk']}
@@ -122,6 +123,7 @@ const HomePage: React.FC = () => {
           />
           <ArtistTile
             name={mostRecentArtist.name}
+            id={mostRecentArtist.id}
             header="Most Recent Artist"
             artistImage={mostRecentArtist.image}
             tags={['rock', 'hyperpop', 'pop.punk']}

@@ -19,7 +19,7 @@ type ArtistsOnReleases = {
 }
 
 type Artist = {
-  id: string
+  id: number
   name: string
   releases?: Release[]
   image?: string

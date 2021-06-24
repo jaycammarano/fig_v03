@@ -10,59 +10,19 @@ interface IReleaseTab {
 
 const ReleaseTab: React.FC<IReleaseTab> = ({ artist, releases }) => {
   const releaseTiles = releases.map((release: Release) => {
-    const artists = release.artistsOnReleases
-      .map((subArtist) => {
-        if (subArtist.role === 'MAIN') {
-          return (
-            <>
-              <Link
-                className="text-green-400 underline"
-                to={`/artists/${subArtist.artist.id}`}
-              >
-                {subArtist.artist.name}
-              </Link>
-            </>
-          );
-        } else if (
-          subArtist.role === 'REMIXER' &&
-          artist !== subArtist.artist.name
-        ) {
-          return (
-            <>
-              Remixed By:{' '}
-              <Link
-                className="text-green-400 underline"
-                to={`/artists/${subArtist.artist.id}`}
-              >
-                {subArtist.artist.name}
-              </Link>
-            </>
-          );
-        }
-        return (
-          <Link
-            className="text-green-400 underline"
-            to={`/artists/${subArtist.artist.id}`}
-          >
-            {subArtist.artist.name}
-          </Link>
-        );
-      })
-      .reduce((acc, x) =>
-        !acc ? (
-          x
-        ) : (
-          <>
-            {acc}, {x}
-          </>
-        )
-      );
+    const typeOfArtist = release.artistsOnReleases.map((artist) => {
+      return {
+        name: artist.artist.name,
+        id: artist.artist.id,
+        role: artist.role,
+      };
+    });
 
     return (
       <AlbumTile
         id={release.id}
         title={release.name}
-        artist={artists}
+        artists={typeOfArtist}
         albumArt={release.image}
       />
     );

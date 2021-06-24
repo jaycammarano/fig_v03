@@ -136,8 +136,9 @@ const HomePage: React.FC = () => {
           <h1 className="px-4 py-3 pr-24 mt-24 text-5xl text-center w-max">
             All Releases
           </h1>
-
-          {displayAllReleases ? displayAllReleases : ''}
+          <div className="flex flex-row">
+            {displayAllReleases ? displayAllReleases : ''}
+          </div>
         </div>
         <div>
           <h1 className="px-4 py-3 pr-24 mt-24 text-5xl text-center w-max">

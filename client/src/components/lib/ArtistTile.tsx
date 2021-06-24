@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface IArtist {
   name: string;
@@ -8,9 +8,7 @@ interface IArtist {
 }
 
 const AlbumTile: React.FC<IArtist> = ({ name, header, artistImage, tags }) => {
-  const displayTags = tags.map((tag) => {
-    return `${tag}, `;
-  });
+  const displayTags = tags.join(', ');
   return (
     <div className="w-1/3 m-4 mt-8 border-2 border-green-400 rounded">
       <div className="p-4 text-center text-white border-b-4 border-green-400">
@@ -23,7 +21,7 @@ const AlbumTile: React.FC<IArtist> = ({ name, header, artistImage, tags }) => {
         <strong className="text-xl text-center">
           {header ? name : `${tags}`}
         </strong>
-        <p>{displayTags}</p>
+        <p>{header ? displayTags : ''}</p>
       </div>
     </div>
   );

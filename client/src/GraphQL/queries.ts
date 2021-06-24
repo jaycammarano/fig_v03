@@ -34,3 +34,21 @@ export const ARTISTABOUT = gql`
     }
   }
 `
+
+export const HOMEPAGE = gql`
+  query HomePage{
+    artists{
+      id
+      name
+      image
+    }
+    releases{
+      artists{
+        id
+        name
+      }
+      name
+      image
+    }
+  }
+`

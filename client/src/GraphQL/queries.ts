@@ -47,6 +47,7 @@ export const HOMEPAGE = gql`
         id
         name
       }
+      id
       name
       image
     }

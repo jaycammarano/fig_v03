@@ -19,10 +19,11 @@ const HomePage: React.FC = () => {
       {
         artists: [
           {
-            id: '',
+            id: 0,
             name: '',
           },
         ],
+        id: 0,
         name: '',
         image: '',
       },
@@ -62,6 +63,7 @@ const HomePage: React.FC = () => {
 
         return (
           <AlbumTile
+            id={release.id}
             title={release.name}
             artist={artists}
             albumArt={release.image}
@@ -120,6 +122,7 @@ const HomePage: React.FC = () => {
             header="Most Recent Album"
             artist="artist"
             albumArt={mostRecentRelease.image}
+            id={mostRecentArtist.id}
           />
           <ArtistTile
             name={mostRecentArtist.name}

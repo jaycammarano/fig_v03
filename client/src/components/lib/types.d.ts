@@ -1,4 +1,5 @@
 export type Release = {
+  id: number
   artistsOnReleases: ArtistsOnReleases[]
   image: string;
   name: string;

@@ -18,16 +18,17 @@ const AboutTab: React.FC<IArtistTab> = ({ artist }) => {
       },
     },
   });
-  const sanitizer = DOMPurify.sanitize;
-  const lastFMAbout = about
-    ? sanitizer(about.lastFMArtist.artist.bio.content)
-    : '<div>Loading</div>';
   const { error, loading, data } = useQuery(ARTISTABOUT, {
     variables: { artist },
   });
   useEffect(() => {
     setAbout(data);
   }, [data]);
+
+  const sanitizer = DOMPurify.sanitize;
+  const lastFMAbout = about
+    ? sanitizer(about.lastFMArtist.artist.bio.content)
+    : '<div>Loading</div>';
 
   return (
     <div className="m-4">

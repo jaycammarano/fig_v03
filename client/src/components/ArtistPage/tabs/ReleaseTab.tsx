@@ -60,13 +60,14 @@ const ReleaseTab: React.FC<IReleaseTab> = ({ artist, releases }) => {
 
     return (
       <AlbumTile
+        id={release.id}
         title={release.name}
         artist={artists}
         albumArt={release.image}
       />
     );
   });
-  return <div>{releaseTiles}</div>;
+  return <div className="flex flex-row">{releaseTiles}</div>;
 };
 
 export default ReleaseTab;

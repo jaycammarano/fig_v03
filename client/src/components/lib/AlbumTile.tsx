@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Artist, ArtistsOnReleases } from './types';
+import { Artist } from './types';
 interface IAlbum {
   title: string;
   header?: string;

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Layout from '../Layout/Layout';
 import BlogSummary from './BlogSummary';
 type TBlogs = {
   data: TBlog[];
@@ -49,7 +50,14 @@ const Blog = () => {
   const displayBlogs = blogs.data.map((blogPost) => {
     return <BlogSummary blog={blogPost} />;
   });
-  return <div>{displayBlogs}</div>;
+  return (
+    <Layout>
+      <div>
+        <h1 className="m-4 my-8 mb-16 text-white text-7xl">Blog</h1>
+        {displayBlogs}
+      </div>
+    </Layout>
+  );
 };
 
 export default Blog;

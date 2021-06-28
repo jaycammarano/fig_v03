@@ -15,18 +15,18 @@ const BlogSummary: React.FC<IBlogPost> = ({ blog }) => {
       <div className="my-4 text-7xl">Blog</div>
       <Link to={`/blog/${blog.id}`}>
         <div className="text-4xl text-green-400">{blog.title}</div>
-        <p className="my-4">
-          <div
-            dangerouslySetInnerHTML={{
-              __html: sanitized,
-            }}
-          />
-          <Link className="text-green-400" to={`/blog/${blog.id}`}>
-            Read More
-          </Link>{' '}
-          - Published: {dateCreated.toLocaleDateString()}{' '}
-        </p>
       </Link>
+      <p className="my-4">
+        <div
+          dangerouslySetInnerHTML={{
+            __html: sanitized,
+          }}
+        />
+        <Link className="text-green-400" to={`/blog/${blog.id}`}>
+          Read More
+        </Link>{' '}
+        - Published: {dateCreated.toLocaleDateString()}{' '}
+      </p>
     </div>
   );
 };

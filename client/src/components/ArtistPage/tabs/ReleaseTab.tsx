@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import AlbumTile from '../../lib/AlbumTile';
 import { Release } from '../../lib/types';
 

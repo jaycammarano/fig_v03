@@ -2,7 +2,6 @@ import "reflect-metadata";
 import { env } from "process";
 import fetch from "node-fetch";
 import { Arg, Field, ObjectType, Query, Resolver } from "type-graphql";
-import { prisma } from "@prisma/client";
 // about resolver
 // takes in name of artist
 // searches lastfm for artist

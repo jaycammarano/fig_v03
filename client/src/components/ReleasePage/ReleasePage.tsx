@@ -1,7 +1,30 @@
-import React, { useState } from 'react';
+import { useQuery } from '@apollo/client';
+import React, { useEffect, useState } from 'react';
+import { RELEASEPAGE } from '../../GraphQL/queries';
 import Layout from '../Layout/Layout';
 
-const ReleasePage: React.FC = () => {
+const ReleasePage: React.FC = (id) => {
+  const starterRelease = {
+    release: {
+      id: 0,
+      name: '',
+      image: '',
+      releaseDate: new Date(),
+      type: 'SINGLE',
+      artistsOnReleases: [
+        { artist: { name: '', id: 0 }, id: '1', role: 'MAIN' },
+      ],
+      tags: [{ name: '' }],
+    },
+  };
+  const [releaseData, setReleaseData] = useState(starterRelease);
+  const { error, loading, data } = useQuery(RELEASEPAGE, {
+    variables: { id: 1 },
+  });
+
+  useEffect(() => {
+    setReleaseData(data);
+  }, [data]);
   const [whichTab, setwhichTab] = useState('releases');
   let activeTab;
   if (whichTab === 'soundcloud') {
@@ -11,18 +34,32 @@ const ReleasePage: React.FC = () => {
   } else if (whichTab === 'related') {
     activeTab = '';
   }
-
+  let releaseDateTime;
+  if (releaseData && releaseData.release.releaseDate) {
+    releaseDateTime = new Date(releaseData.release.releaseDate);
+  }
   return (
     <Layout>
       <div className="text-white ">
         <div className="m-2 font-bold text-white">
-          <div>
-            <img src="" alt="release cover" />
+          <div className="flex flex-row">
+            <div>
+              <img
+                src={releaseData ? releaseData.release.image : ''}
+                alt="release cover"
+              />
+            </div>
+            <div>
+              <div className="m-4 text-7xl">
+                {releaseData ? releaseData.release.name : ''}
+              </div>
+              <p className="m-4">
+                Main Artists -{' '}
+                {releaseData ? releaseDateTime?.toLocaleDateString() : ''} -{' '}
+                {releaseData ? releaseData.release.type : ''}
+              </p>
+            </div>
           </div>
-          <div className="m-4 text-7xl">Release Title</div>
-          <p className="m-4">
-            Main Artists - Original Release Year - Release Type
-          </p>
           <div className="flex flex-row">
             <div
               onClick={() => setwhichTab('soundcloud')}

@@ -39,8 +39,6 @@ const ArtistPage: React.FC<IArtistPage> = ({ location }) => {
   useEffect(() => {
     setArtist(data);
   }, [data]);
-  // lazy load bio from Last.FM +/or discogs
-  // lazy load similar artists based on tags?
   let activeTab;
   if (artist && whichTab === 'releases') {
     activeTab = (

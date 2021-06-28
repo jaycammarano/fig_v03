@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Layout from "../Layout/Layout";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Layout from '../Layout/Layout';
 
 const LandingPage: React.FC = () => {
   return (
@@ -31,11 +31,16 @@ const LandingPage: React.FC = () => {
             <div className="text-center">
               <button className="p-2 mx-2 mt-12 border-2 border-green-600 rounded hover:bg-green-600 hover:bg-opacity-50">
                 Learn More
-              </button>{" "}
+              </button>{' '}
               <Link to="/home">
                 <button className="p-2 mx-2 my-4 border-2 border-green-600 rounded hover:bg-green-600 hover:bg-opacity-50">
                   Start Listening
                 </button>
+              </Link>
+              <Link to="/blog">
+                <button className="p-2 px-8 mx-2 mt-12 text-white border-2 border-green-600 rounded hover:bg-green-600 hover:bg-opacity-50">
+                  Blog
+                </button>{' '}
               </Link>
             </div>
           </div>

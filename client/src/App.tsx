@@ -17,7 +17,11 @@ function App() {
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/home" component={HomePage} />
           <Route exact path="/artists/:id" component={ArtistPage} />
-          <Route exact path="/releases/:id" component={ReleasePage} />
+          <Route
+            exact
+            path="/releases/:id"
+            component={(props: any) => ReleasePage(props.match.params.id)}
+          />
           <Route
             exact
             path="/blog/:id"

@@ -53,3 +53,25 @@ export const HOMEPAGE = gql`
     }
   }
 `
+
+export const RELEASEPAGE = gql`
+  query ReleaseInfo($id: Int!){
+  release(where: {id: $id}){
+    name
+    id
+    image
+    releaseDate
+    tags{
+      name
+    }
+    type
+    artistsOnReleases{
+      artistId
+      artist{
+        name
+      }
+      role
+    }
+  }
+}
+`

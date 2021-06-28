@@ -14,7 +14,9 @@ const Header: React.FC = () => {
           <Link to="/home">
             <button className="p-4 font-bold hover:bg-gray-500">browse.</button>
           </Link>
-          <button className="p-4 font-bold hover:bg-gray-500">artists.</button>
+          <Link to="/blog">
+            <button className="p-4 font-bold hover:bg-gray-500">blog.</button>
+          </Link>
         </div>
       </div>
     </header>

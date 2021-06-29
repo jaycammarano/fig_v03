@@ -11,15 +11,13 @@ const BlogPost = (id: number) => {
     date_created: '2021-06-26T22:56:12-04:00',
     user_updated: 'cbd6842f-cff3-4d93-b380-3252b0e664a0',
     date_updated: '2021-06-26T23:15:40-04:00',
-    contents: '',
+    content: '',
     title: '',
   };
   const [blog, setBlog] = useState({ data: starterBlog });
 
   async function fetchData() {
-    const response = await fetch(
-      `http://localhost:8055/items/testing_collections/${id}`
-    );
+    const response = await fetch(`http://localhost:8055/items/blog/${id}`);
     const data = await response.json();
     setBlog(data);
   }
@@ -27,7 +25,7 @@ const BlogPost = (id: number) => {
     fetchData();
   }, []);
   const sanitizer = DOMPurify.sanitize;
-  const sanitized = sanitizer(blog.data.contents);
+  const sanitized = sanitizer(blog.data.content);
 
   const dateCreated = new Date(blog.data.date_created);
   return (

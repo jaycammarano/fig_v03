@@ -7,7 +7,7 @@ interface IBlogPost {
 }
 const BlogSummary: React.FC<IBlogPost> = ({ blog }) => {
   const dateCreated = new Date(blog.date_created);
-  const summary = blog.contents.slice(0, 250).trim().concat('...');
+  const summary = blog.content.slice(0, 250).trim().concat('...');
   const sanitizer = DOMPurify.sanitize;
   const sanitized = sanitizer(summary);
   return (

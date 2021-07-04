@@ -6,7 +6,7 @@ interface IBlogPost {
   blog: TBlog;
 }
 const BlogSummary: React.FC<IBlogPost> = ({ blog }) => {
-  const dateCreated = new Date(blog.date_created);
+  const dateCreated = new Date(blog.createdAt);
   const summary = blog.content.slice(0, 250).trim().concat('...');
   const sanitizer = DOMPurify.sanitize;
   const sanitized = sanitizer(summary);
@@ -17,7 +17,7 @@ const BlogSummary: React.FC<IBlogPost> = ({ blog }) => {
         <div className="text-4xl text-green-400">{blog.title}</div>
       </Link>
       <p className="w-2/3 my-4">
-        <div
+        <p
           dangerouslySetInnerHTML={{
             __html: sanitized,
           }}

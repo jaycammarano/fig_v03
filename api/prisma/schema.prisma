@@ -69,8 +69,9 @@ model Release {
 
 model Tag {
   id       Int       @id @default(autoincrement())
-  name     String
+  name     String   @unique
   releases Release[]
+  blogs    Blog[]
 }
 
 model ArtistsOnReleases {
@@ -82,4 +83,13 @@ model ArtistsOnReleases {
   createdAt DateTime @default(now())
 
   @@id([artistId, releaseId])
+}
+
+model Blog {
+  id Int @id @default(autoincrement())
+  title String
+  content String
+  tags Tag[]
+  createdAt DateTime @default(now())
+  createdBy String @default("spaghettios")
 }

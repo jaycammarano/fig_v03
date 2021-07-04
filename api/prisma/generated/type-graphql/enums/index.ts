@@ -1,5 +1,6 @@
 export { ArtistScalarFieldEnum } from "./ArtistScalarFieldEnum";
 export { ArtistsOnReleasesScalarFieldEnum } from "./ArtistsOnReleasesScalarFieldEnum";
+export { BlogScalarFieldEnum } from "./BlogScalarFieldEnum";
 export { QueryMode } from "./QueryMode";
 export { ReleaseScalarFieldEnum } from "./ReleaseScalarFieldEnum";
 export { ReleaseType } from "./ReleaseType";

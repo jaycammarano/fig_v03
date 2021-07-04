@@ -2,6 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { BlogListRelationFilter } from "../inputs/BlogListRelationFilter";
 import { IntFilter } from "../inputs/IntFilter";
 import { ReleaseListRelationFilter } from "../inputs/ReleaseListRelationFilter";
 import { StringFilter } from "../inputs/StringFilter";
@@ -39,4 +40,9 @@ export class TagWhereInput {
     nullable: true
   })
   releases?: ReleaseListRelationFilter | undefined;
+
+  @TypeGraphQL.Field(_type => BlogListRelationFilter, {
+    nullable: true
+  })
+  blogs?: BlogListRelationFilter | undefined;
 }

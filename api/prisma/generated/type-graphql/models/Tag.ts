@@ -2,6 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../scalars";
+import { Blog } from "../models/Blog";
 import { Release } from "../models/Release";
 
 @TypeGraphQL.ObjectType({
@@ -19,4 +20,6 @@ export class Tag {
   name!: string;
 
   releases?: Release[];
+
+  blogs?: Blog[];
 }

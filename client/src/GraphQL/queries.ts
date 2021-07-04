@@ -61,6 +61,7 @@ export const RELEASEPAGE = gql`
     id
     image
     releaseDate
+    url
     tags{
       name
     }
@@ -74,4 +75,81 @@ export const RELEASEPAGE = gql`
     }
   }
 }
+`
+export const ALBUMINFO = gql`
+  query LFMAlbums($albumName: String! $artistName: String!) {
+    lastFMAlbum(artist: $artistName, album: $albumName){
+      album{ 
+        url
+      wiki{
+        summary
+        content
+      }}
+    }
+  }
+`
+
+export const ALLBLOGS = gql`
+  query AllBlogs{
+    blogs {
+      id
+      title
+      content
+      createdBy
+      createdAt
+      tags {
+        name
+      }
+    }
+  }
+`
+
+export const BLOG = gql`
+  query {
+    blogs {
+      id
+      title
+      content
+      createdBy
+      createdAt
+      tags {
+        name
+      }
+    }
+  }
+`
+
+
+export const DISCOGS_ID_LOOKUP = gql`
+  query discogsIDSearch($releaseTitle: String! $artist: String!){
+    discogsReleaseSearch(releaseTitle: $releaseTitle, artist: $artist){
+    id
+  }
+}
+`
+
+export const DISCOGS_RELEASE_LOOKUP = gql`
+  query DiscogsReleaseLookUp($id: Float!) {
+    discogsReleaseLookUp(id: $id) {
+      artists{
+        name
+        anv
+      }
+      styles
+      genres
+      videos{
+        uri
+      }
+      tracklist{
+        position
+        title
+        duration
+        extraartists{
+          role
+          name
+          anv
+        }
+      }
+    }
+  }
 `

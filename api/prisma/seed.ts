@@ -30,8 +30,18 @@ async function seed() {
         },
     }
   })
-
-  console.log({ battyjack })
+  const blogPostOne = await prisma.blog.create({
+    data: {
+      title: "rizzla + blk.adonis - Battyjack EP",
+      content: "Bringing back 90s club culture and dancehall with this slick Lisa Hyper sample.",
+      tags: {
+        create:[{
+          name: "rizzla"
+        }],
+      }
+    }
+  })
+  console.log({ battyjack, blogPostOne })
 }
 
 seed()

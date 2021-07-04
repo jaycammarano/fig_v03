@@ -11,13 +11,15 @@ const crudResolversMap = {
   Artist: crudResolvers.ArtistCrudResolver,
   Release: crudResolvers.ReleaseCrudResolver,
   Tag: crudResolvers.TagCrudResolver,
-  ArtistsOnReleases: crudResolvers.ArtistsOnReleasesCrudResolver
+  ArtistsOnReleases: crudResolvers.ArtistsOnReleasesCrudResolver,
+  Blog: crudResolvers.BlogCrudResolver
 };
 const relationResolversMap = {
   Artist: relationResolvers.ArtistRelationsResolver,
   Release: relationResolvers.ReleaseRelationsResolver,
   Tag: relationResolvers.TagRelationsResolver,
-  ArtistsOnReleases: relationResolvers.ArtistsOnReleasesRelationsResolver
+  ArtistsOnReleases: relationResolvers.ArtistsOnReleasesRelationsResolver,
+  Blog: relationResolvers.BlogRelationsResolver
 };
 const actionResolversMap = {
   Artist: {
@@ -75,25 +77,42 @@ const actionResolversMap = {
     upsertArtistsOnReleases: actionResolvers.UpsertArtistsOnReleasesResolver,
     aggregateArtistsOnReleases: actionResolvers.AggregateArtistsOnReleasesResolver,
     groupByArtistsOnReleases: actionResolvers.GroupByArtistsOnReleasesResolver
+  },
+  Blog: {
+    blog: actionResolvers.FindUniqueBlogResolver,
+    findFirstBlog: actionResolvers.FindFirstBlogResolver,
+    blogs: actionResolvers.FindManyBlogResolver,
+    createBlog: actionResolvers.CreateBlogResolver,
+    createManyBlog: actionResolvers.CreateManyBlogResolver,
+    deleteBlog: actionResolvers.DeleteBlogResolver,
+    updateBlog: actionResolvers.UpdateBlogResolver,
+    deleteManyBlog: actionResolvers.DeleteManyBlogResolver,
+    updateManyBlog: actionResolvers.UpdateManyBlogResolver,
+    upsertBlog: actionResolvers.UpsertBlogResolver,
+    aggregateBlog: actionResolvers.AggregateBlogResolver,
+    groupByBlog: actionResolvers.GroupByBlogResolver
   }
 };
 const resolversInfo = {
   Artist: ["artist", "findFirstArtist", "artists", "createArtist", "createManyArtist", "deleteArtist", "updateArtist", "deleteManyArtist", "updateManyArtist", "upsertArtist", "aggregateArtist", "groupByArtist"],
   Release: ["release", "findFirstRelease", "releases", "createRelease", "createManyRelease", "deleteRelease", "updateRelease", "deleteManyRelease", "updateManyRelease", "upsertRelease", "aggregateRelease", "groupByRelease"],
   Tag: ["tag", "findFirstTag", "tags", "createTag", "createManyTag", "deleteTag", "updateTag", "deleteManyTag", "updateManyTag", "upsertTag", "aggregateTag", "groupByTag"],
-  ArtistsOnReleases: ["findUniqueArtistsOnReleases", "findFirstArtistsOnReleases", "findManyArtistsOnReleases", "createArtistsOnReleases", "createManyArtistsOnReleases", "deleteArtistsOnReleases", "updateArtistsOnReleases", "deleteManyArtistsOnReleases", "updateManyArtistsOnReleases", "upsertArtistsOnReleases", "aggregateArtistsOnReleases", "groupByArtistsOnReleases"]
+  ArtistsOnReleases: ["findUniqueArtistsOnReleases", "findFirstArtistsOnReleases", "findManyArtistsOnReleases", "createArtistsOnReleases", "createManyArtistsOnReleases", "deleteArtistsOnReleases", "updateArtistsOnReleases", "deleteManyArtistsOnReleases", "updateManyArtistsOnReleases", "upsertArtistsOnReleases", "aggregateArtistsOnReleases", "groupByArtistsOnReleases"],
+  Blog: ["blog", "findFirstBlog", "blogs", "createBlog", "createManyBlog", "deleteBlog", "updateBlog", "deleteManyBlog", "updateManyBlog", "upsertBlog", "aggregateBlog", "groupByBlog"]
 };
 const relationResolversInfo = {
   Artist: ["releases", "artistsOnReleases"],
   Release: ["artists", "tags", "artistsOnReleases"],
-  Tag: ["releases"],
-  ArtistsOnReleases: ["artist", "release"]
+  Tag: ["releases", "blogs"],
+  ArtistsOnReleases: ["artist", "release"],
+  Blog: ["tags"]
 };
 const modelsInfo = {
   Artist: ["id", "name", "image", "createdAt"],
   Release: ["id", "name", "releaseDate", "type", "image", "url", "createdAt"],
   Tag: ["id", "name"],
-  ArtistsOnReleases: ["artistId", "releaseId", "role", "createdAt"]
+  ArtistsOnReleases: ["artistId", "releaseId", "role", "createdAt"],
+  Blog: ["id", "title", "content", "createdAt", "createdBy"]
 };
 const inputsInfo = {
   ArtistWhereInput: ["AND", "OR", "NOT", "id", "name", "releases", "image", "artistsOnReleases", "createdAt"],
@@ -104,14 +123,18 @@ const inputsInfo = {
   ReleaseOrderByInput: ["id", "name", "releaseDate", "type", "image", "url", "createdAt"],
   ReleaseWhereUniqueInput: ["id", "url"],
   ReleaseScalarWhereWithAggregatesInput: ["AND", "OR", "NOT", "id", "name", "releaseDate", "type", "image", "url", "createdAt"],
-  TagWhereInput: ["AND", "OR", "NOT", "id", "name", "releases"],
+  TagWhereInput: ["AND", "OR", "NOT", "id", "name", "releases", "blogs"],
   TagOrderByInput: ["id", "name"],
-  TagWhereUniqueInput: ["id"],
+  TagWhereUniqueInput: ["id", "name"],
   TagScalarWhereWithAggregatesInput: ["AND", "OR", "NOT", "id", "name"],
   ArtistsOnReleasesWhereInput: ["AND", "OR", "NOT", "artist", "release", "artistId", "releaseId", "role", "createdAt"],
   ArtistsOnReleasesOrderByInput: ["artistId", "releaseId", "role", "createdAt"],
   ArtistsOnReleasesWhereUniqueInput: ["artistId_releaseId"],
   ArtistsOnReleasesScalarWhereWithAggregatesInput: ["AND", "OR", "NOT", "artistId", "releaseId", "role", "createdAt"],
+  BlogWhereInput: ["AND", "OR", "NOT", "id", "title", "content", "tags", "createdAt", "createdBy"],
+  BlogOrderByInput: ["id", "title", "content", "createdAt", "createdBy"],
+  BlogWhereUniqueInput: ["id"],
+  BlogScalarWhereWithAggregatesInput: ["AND", "OR", "NOT", "id", "title", "content", "createdAt", "createdBy"],
   ArtistCreateInput: ["name", "image", "createdAt", "releases", "artistsOnReleases"],
   ArtistUpdateInput: ["name", "image", "createdAt", "releases", "artistsOnReleases"],
   ArtistCreateManyInput: ["id", "name", "image", "createdAt"],
@@ -120,14 +143,18 @@ const inputsInfo = {
   ReleaseUpdateInput: ["name", "releaseDate", "type", "image", "url", "createdAt", "artists", "tags", "artistsOnReleases"],
   ReleaseCreateManyInput: ["id", "name", "releaseDate", "type", "image", "url", "createdAt"],
   ReleaseUpdateManyMutationInput: ["name", "releaseDate", "type", "image", "url", "createdAt"],
-  TagCreateInput: ["name", "releases"],
-  TagUpdateInput: ["name", "releases"],
+  TagCreateInput: ["name", "releases", "blogs"],
+  TagUpdateInput: ["name", "releases", "blogs"],
   TagCreateManyInput: ["id", "name"],
   TagUpdateManyMutationInput: ["name"],
   ArtistsOnReleasesCreateInput: ["role", "createdAt", "artist", "release"],
   ArtistsOnReleasesUpdateInput: ["role", "createdAt", "artist", "release"],
   ArtistsOnReleasesCreateManyInput: ["artistId", "releaseId", "role", "createdAt"],
   ArtistsOnReleasesUpdateManyMutationInput: ["role", "createdAt"],
+  BlogCreateInput: ["title", "content", "createdAt", "createdBy", "tags"],
+  BlogUpdateInput: ["title", "content", "createdAt", "createdBy", "tags"],
+  BlogCreateManyInput: ["id", "title", "content", "createdAt", "createdBy"],
+  BlogUpdateManyMutationInput: ["title", "content", "createdAt", "createdBy"],
   IntFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not"],
   StringFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "contains", "startsWith", "endsWith", "mode", "not"],
   ReleaseListRelationFilter: ["every", "some", "none"],
@@ -140,6 +167,7 @@ const inputsInfo = {
   ArtistListRelationFilter: ["every", "some", "none"],
   TagListRelationFilter: ["every", "some", "none"],
   EnumReleaseTypeWithAggregatesFilter: ["equals", "in", "notIn", "not", "_count", "_min", "_max"],
+  BlogListRelationFilter: ["every", "some", "none"],
   ArtistRelationFilter: ["is", "isNot"],
   ReleaseRelationFilter: ["is", "isNot"],
   EnumRoleFilter: ["equals", "in", "notIn", "not"],
@@ -160,12 +188,16 @@ const inputsInfo = {
   TagUpdateManyWithoutReleasesInput: ["create", "connectOrCreate", "upsert", "connect", "set", "disconnect", "delete", "update", "updateMany", "deleteMany"],
   ArtistsOnReleasesUpdateManyWithoutReleaseInput: ["create", "connectOrCreate", "upsert", "createMany", "connect", "set", "disconnect", "delete", "update", "updateMany", "deleteMany"],
   ReleaseCreateNestedManyWithoutTagsInput: ["create", "connectOrCreate", "connect"],
+  BlogCreateNestedManyWithoutTagsInput: ["create", "connectOrCreate", "connect"],
   ReleaseUpdateManyWithoutTagsInput: ["create", "connectOrCreate", "upsert", "connect", "set", "disconnect", "delete", "update", "updateMany", "deleteMany"],
+  BlogUpdateManyWithoutTagsInput: ["create", "connectOrCreate", "upsert", "connect", "set", "disconnect", "delete", "update", "updateMany", "deleteMany"],
   ArtistCreateNestedOneWithoutArtistsOnReleasesInput: ["create", "connectOrCreate", "connect"],
   ReleaseCreateNestedOneWithoutArtistsOnReleasesInput: ["create", "connectOrCreate", "connect"],
   EnumRoleFieldUpdateOperationsInput: ["set"],
   ArtistUpdateOneWithoutArtistsOnReleasesInput: ["create", "connectOrCreate", "upsert", "connect", "disconnect", "delete", "update"],
   ReleaseUpdateOneWithoutArtistsOnReleasesInput: ["create", "connectOrCreate", "upsert", "connect", "disconnect", "delete", "update"],
+  TagCreateNestedManyWithoutBlogsInput: ["create", "connectOrCreate", "connect"],
+  TagUpdateManyWithoutBlogsInput: ["create", "connectOrCreate", "upsert", "connect", "set", "disconnect", "delete", "update", "updateMany", "deleteMany"],
   NestedIntFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not"],
   NestedStringFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "contains", "startsWith", "endsWith", "not"],
   NestedDateTimeFilter: ["equals", "in", "notIn", "lt", "lte", "gt", "gte", "not"],
@@ -192,7 +224,7 @@ const inputsInfo = {
   ArtistsOnReleasesScalarWhereInput: ["AND", "OR", "NOT", "artistId", "releaseId", "role", "createdAt"],
   ArtistCreateWithoutReleasesInput: ["name", "image", "createdAt", "artistsOnReleases"],
   ArtistCreateOrConnectWithoutReleasesInput: ["where", "create"],
-  TagCreateWithoutReleasesInput: ["name"],
+  TagCreateWithoutReleasesInput: ["name", "blogs"],
   TagCreateOrConnectWithoutReleasesInput: ["where", "create"],
   ArtistsOnReleasesCreateWithoutReleaseInput: ["role", "createdAt", "artist"],
   ArtistsOnReleasesCreateOrConnectWithoutReleaseInput: ["where", "create"],
@@ -210,9 +242,15 @@ const inputsInfo = {
   ArtistsOnReleasesUpdateManyWithWhereWithoutReleaseInput: ["where", "data"],
   ReleaseCreateWithoutTagsInput: ["name", "releaseDate", "type", "image", "url", "createdAt", "artists", "artistsOnReleases"],
   ReleaseCreateOrConnectWithoutTagsInput: ["where", "create"],
+  BlogCreateWithoutTagsInput: ["title", "content", "createdAt", "createdBy"],
+  BlogCreateOrConnectWithoutTagsInput: ["where", "create"],
   ReleaseUpsertWithWhereUniqueWithoutTagsInput: ["where", "update", "create"],
   ReleaseUpdateWithWhereUniqueWithoutTagsInput: ["where", "data"],
   ReleaseUpdateManyWithWhereWithoutTagsInput: ["where", "data"],
+  BlogUpsertWithWhereUniqueWithoutTagsInput: ["where", "update", "create"],
+  BlogUpdateWithWhereUniqueWithoutTagsInput: ["where", "data"],
+  BlogUpdateManyWithWhereWithoutTagsInput: ["where", "data"],
+  BlogScalarWhereInput: ["AND", "OR", "NOT", "id", "title", "content", "createdAt", "createdBy"],
   ArtistCreateWithoutArtistsOnReleasesInput: ["name", "image", "createdAt", "releases"],
   ArtistCreateOrConnectWithoutArtistsOnReleasesInput: ["where", "create"],
   ReleaseCreateWithoutArtistsOnReleasesInput: ["name", "releaseDate", "type", "image", "url", "createdAt", "artists", "tags"],
@@ -221,14 +259,21 @@ const inputsInfo = {
   ArtistUpdateWithoutArtistsOnReleasesInput: ["name", "image", "createdAt", "releases"],
   ReleaseUpsertWithoutArtistsOnReleasesInput: ["update", "create"],
   ReleaseUpdateWithoutArtistsOnReleasesInput: ["name", "releaseDate", "type", "image", "url", "createdAt", "artists", "tags"],
+  TagCreateWithoutBlogsInput: ["name", "releases"],
+  TagCreateOrConnectWithoutBlogsInput: ["where", "create"],
+  TagUpsertWithWhereUniqueWithoutBlogsInput: ["where", "update", "create"],
+  TagUpdateWithWhereUniqueWithoutBlogsInput: ["where", "data"],
+  TagUpdateManyWithWhereWithoutBlogsInput: ["where", "data"],
   ArtistsOnReleasesCreateManyArtistInput: ["releaseId", "role", "createdAt"],
   ReleaseUpdateWithoutArtistsInput: ["name", "releaseDate", "type", "image", "url", "createdAt", "tags", "artistsOnReleases"],
   ArtistsOnReleasesUpdateWithoutArtistInput: ["role", "createdAt", "release"],
   ArtistsOnReleasesCreateManyReleaseInput: ["artistId", "role", "createdAt"],
   ArtistUpdateWithoutReleasesInput: ["name", "image", "createdAt", "artistsOnReleases"],
-  TagUpdateWithoutReleasesInput: ["name"],
+  TagUpdateWithoutReleasesInput: ["name", "blogs"],
   ArtistsOnReleasesUpdateWithoutReleaseInput: ["role", "createdAt", "artist"],
-  ReleaseUpdateWithoutTagsInput: ["name", "releaseDate", "type", "image", "url", "createdAt", "artists", "artistsOnReleases"]
+  ReleaseUpdateWithoutTagsInput: ["name", "releaseDate", "type", "image", "url", "createdAt", "artists", "artistsOnReleases"],
+  BlogUpdateWithoutTagsInput: ["title", "content", "createdAt", "createdBy"],
+  TagUpdateWithoutBlogsInput: ["name", "releases"]
 };
 const outputsInfo = {
   AggregateArtist: ["_count", "_avg", "_sum", "_min", "_max"],
@@ -239,6 +284,8 @@ const outputsInfo = {
   TagGroupBy: ["id", "name", "_count", "_avg", "_sum", "_min", "_max"],
   AggregateArtistsOnReleases: ["_count", "_avg", "_sum", "_min", "_max"],
   ArtistsOnReleasesGroupBy: ["artistId", "releaseId", "role", "createdAt", "_count", "_avg", "_sum", "_min", "_max"],
+  AggregateBlog: ["_count", "_avg", "_sum", "_min", "_max"],
+  BlogGroupBy: ["id", "title", "content", "createdAt", "createdBy", "_count", "_avg", "_sum", "_min", "_max"],
   AffectedRowsOutput: ["count"],
   ArtistCountAggregate: ["id", "name", "image", "createdAt", "_all"],
   ArtistAvgAggregate: ["id"],
@@ -259,7 +306,12 @@ const outputsInfo = {
   ArtistsOnReleasesAvgAggregate: ["artistId", "releaseId"],
   ArtistsOnReleasesSumAggregate: ["artistId", "releaseId"],
   ArtistsOnReleasesMinAggregate: ["artistId", "releaseId", "role", "createdAt"],
-  ArtistsOnReleasesMaxAggregate: ["artistId", "releaseId", "role", "createdAt"]
+  ArtistsOnReleasesMaxAggregate: ["artistId", "releaseId", "role", "createdAt"],
+  BlogCountAggregate: ["id", "title", "content", "createdAt", "createdBy", "_all"],
+  BlogAvgAggregate: ["id"],
+  BlogSumAggregate: ["id"],
+  BlogMinAggregate: ["id", "title", "content", "createdAt", "createdBy"],
+  BlogMaxAggregate: ["id", "title", "content", "createdAt", "createdBy"]
 };
 const argsInfo = {
   FindUniqueArtistArgs: ["where"],
@@ -309,7 +361,19 @@ const argsInfo = {
   UpdateManyArtistsOnReleasesArgs: ["data", "where"],
   UpsertArtistsOnReleasesArgs: ["where", "create", "update"],
   AggregateArtistsOnReleasesArgs: ["where", "orderBy", "cursor", "take", "skip"],
-  GroupByArtistsOnReleasesArgs: ["where", "orderBy", "by", "having", "take", "skip"]
+  GroupByArtistsOnReleasesArgs: ["where", "orderBy", "by", "having", "take", "skip"],
+  FindUniqueBlogArgs: ["where"],
+  FindFirstBlogArgs: ["where", "orderBy", "cursor", "take", "skip", "distinct"],
+  FindManyBlogArgs: ["where", "orderBy", "cursor", "take", "skip", "distinct"],
+  CreateBlogArgs: ["data"],
+  CreateManyBlogArgs: ["data", "skipDuplicates"],
+  DeleteBlogArgs: ["where"],
+  UpdateBlogArgs: ["data", "where"],
+  DeleteManyBlogArgs: ["where"],
+  UpdateManyBlogArgs: ["data", "where"],
+  UpsertBlogArgs: ["where", "create", "update"],
+  AggregateBlogArgs: ["where", "orderBy", "cursor", "take", "skip"],
+  GroupByBlogArgs: ["where", "orderBy", "by", "having", "take", "skip"]
 };
 
 type ResolverModelNames = keyof typeof crudResolversMap;

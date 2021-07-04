@@ -30,6 +30,25 @@ class LFMArtistReturn {
   artist!: LFMArtist[];
 }
 
+
+@ObjectType()
+class LFMAlbum {
+  @Field()
+  name!: string;
+  @Field()
+  artist!: string;
+  @Field()
+  url!: string;
+  @Field()
+  wiki!: LFMBio;
+}
+
+@ObjectType()
+class LFMAlbumReturn {
+  @Field(() => LFMAlbum)
+  album!: LFMAlbum[];
+}
+
 @Resolver()
 export class LastFMResolver {
   @Query((returns) => LFMArtistReturn)
@@ -38,6 +57,17 @@ export class LastFMResolver {
   ): Promise<LFMArtistReturn | null> {
     const response = await fetch(
       `https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artist}&api_key=${env["LASTFM_API_KEY"]}&format=json`
+    );
+    return response.json();
+  }
+
+  @Query((returns) => LFMAlbumReturn)
+  async lastFMAlbum(
+    @Arg("album") album: string,
+    @Arg("artist") artist: string
+  ): Promise<LFMArtistReturn | null> {
+    const response = await fetch(
+      `https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=%208dc653ee70d6c459d6cffd957c4b8081&artist=${artist}&album=${album}&format=json`
     );
     return response.json();
   }

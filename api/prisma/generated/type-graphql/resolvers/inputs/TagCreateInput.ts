@@ -2,6 +2,7 @@ import * as TypeGraphQL from "type-graphql";
 import * as GraphQLScalars from "graphql-scalars";
 import { Prisma } from "@prisma/client";
 import { DecimalJSScalar } from "../../scalars";
+import { BlogCreateNestedManyWithoutTagsInput } from "../inputs/BlogCreateNestedManyWithoutTagsInput";
 import { ReleaseCreateNestedManyWithoutTagsInput } from "../inputs/ReleaseCreateNestedManyWithoutTagsInput";
 
 @TypeGraphQL.InputType({
@@ -17,4 +18,9 @@ export class TagCreateInput {
     nullable: true
   })
   releases?: ReleaseCreateNestedManyWithoutTagsInput | undefined;
+
+  @TypeGraphQL.Field(_type => BlogCreateNestedManyWithoutTagsInput, {
+    nullable: true
+  })
+  blogs?: BlogCreateNestedManyWithoutTagsInput | undefined;
 }

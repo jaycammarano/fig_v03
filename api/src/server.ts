@@ -9,11 +9,14 @@ import {
   ReleaseRelationsResolver,
   ArtistCrudResolver,
   ReleaseCrudResolver,
+  BlogCrudResolver,
+  BlogRelationsResolver
 } from "../prisma/generated/type-graphql";
 import path from "path";
 import { PrismaClient } from "@prisma/client";
 
 import { LastFMResolver } from "./GraphQL/lastFm";
+import { DiscogsResolver } from "./GraphQL/discogs";
 
 interface Context {
   prisma: PrismaClient;
@@ -29,6 +32,9 @@ const main = async () => {
       ArtistsOnReleasesRelationsResolver,
       ArtistsOnReleasesCrudResolver,
       LastFMResolver,
+      BlogCrudResolver,
+      BlogRelationsResolver,
+      DiscogsResolver
     ],
     validate: false,
   });

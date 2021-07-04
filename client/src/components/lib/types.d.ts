@@ -6,6 +6,7 @@ export type Release = {
   releaseDate: Date
   tags: Tag[];
   type: string
+  url?: string
 };
 
 type Tag = {
@@ -23,4 +24,10 @@ type Artist = {
   name: string
   releases?: Release[]
   image?: string
+}
+
+export type Track = {
+  position: string
+  title: string
+  duration: string
 }
